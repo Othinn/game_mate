@@ -1,0 +1,10 @@
+.navbar.navbar-default
+  .container
+    .navbar-header
+      =link_to 'PlayMate', home_index_path, {class: 'navbar-brand'}
+    .nav.navbar-nav
+      -if user_signed_in?
+        =link_to 'Sign Out', destroy_user_session_path, method: :delete
+      -else
+        =link_to 'Log in', new_user_session_path
+        =link_to 'Sign In', new_user_registration_path
