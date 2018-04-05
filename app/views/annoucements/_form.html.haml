@@ -1,0 +1,28 @@
+= form_for @annoucement do |f|
+  - if @annoucement.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@annoucement.errors.count, "error")} prohibited this annoucement from being saved:"
+      %ul
+        - @annoucement.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :description
+    = f.text_area :description
+  .field
+    = f.label :city
+    = f.text_field :city
+  .field
+    = f.label :exp_date
+    = f.date_select :exp_date
+  .field
+    = f.label :user
+    = f.text_field :user
+  .field
+    = f.label :group
+    = f.text_field :group
+  .actions
+    = f.submit 'Save'

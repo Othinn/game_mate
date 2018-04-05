@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :annoucements
+  resources :groups
   root 'home#index', as: 'home_index'
 
   devise_for :users

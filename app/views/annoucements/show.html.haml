@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @annoucement.title
+%p
+  %b Description:
+  = @annoucement.description
+%p
+  %b City:
+  = @annoucement.city
+%p
+  %b Exp date:
+  = @annoucement.exp_date
+%p
+  %b User:
+  = @annoucement.user
+%p
+  %b Group:
+  = @annoucement.group
+
+= link_to 'Edit', edit_annoucement_path(@annoucement)
+\|
+= link_to 'Back', annoucements_path

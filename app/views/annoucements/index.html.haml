@@ -1,0 +1,31 @@
+%h1 Listing annoucements
+
+%table
+  %thead
+    %tr
+      %th Title
+      %th Description
+      %th City
+      %th Exp date
+      %th User
+      %th Group
+      %th
+      %th
+      %th
+
+  %tbody
+    - @annoucements.each do |annoucement|
+      %tr
+        %td= annoucement.title
+        %td= annoucement.description
+        %td= annoucement.city
+        %td= annoucement.exp_date
+        %td= annoucement.user
+        %td= annoucement.group
+        %td= link_to 'Show', annoucement
+        %td= link_to 'Edit', edit_annoucement_path(annoucement)
+        %td= link_to 'Destroy', annoucement, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Annoucement', new_annoucement_path
