@@ -1,0 +1,18 @@
+%h1 Listing groups
+
+%table
+  %thead
+    %tr
+      %th Group name
+      %th
+      %th
+      %th
+
+  %tbody
+    - @groups.each do |group|
+      %tr
+        %td= group.group_name
+        %td= link_to 'Show', group
+        %td= link_to 'Leave group', group, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br

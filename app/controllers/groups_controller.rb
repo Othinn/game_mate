@@ -21,6 +21,33 @@ class GroupsController < ApplicationController
   def edit
   end
 
+  def leave_group
+    # @user_groups[current_user[:id]].destroy
+    # respond_to do |format|
+    #   format.html { redirect_to user_groups, notice: "You leave #{group.name}."}
+    #   format.json { head :no_content }
+    # end
+    user_groups.delete(UserGroup.find(user_id))
+  end
+
+  def join_group
+    @user = User.find(current_user[:id])
+    @group = Group.find(params[:id])
+    #UserGroup.new group_id: group, user_id: user
+    @user.groups << @group
+    flash[:notice] = 'Joined to group'
+    redirect_to @group
+  end
+
+  def user_groups
+    @user_groups = UserGroup.where(user_id: current_user.id)
+    project_ids = []
+    @user_groups.each do |member|
+      project_ids << member.group_id
+    end
+    @groups = Group.where(id: project_ids)
+  end
+
   # POST /groups
   # POST /groups.json
   def create
@@ -69,6 +96,6 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:group_name)
+      params.require(:group).permit(:group_name, :group_id, :user_id)
     end
 end
