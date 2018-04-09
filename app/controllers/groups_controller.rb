@@ -22,12 +22,15 @@ class GroupsController < ApplicationController
   end
 
   def leave_group
-    # @user_groups[current_user[:id]].destroy
-    # respond_to do |format|
-    #   format.html { redirect_to user_groups, notice: "You leave #{group.name}."}
-    #   format.json { head :no_content }
-    # end
-    user_groups.delete(UserGroup.find(user_id))
+
+    # @leave = UserGroup.where("user_id = '#{current_user[:id]}' and group_id = '#{params[:id]}'").destroy_all
+    #
+    # flash[:notice] = 'You leaved this group'
+    # redirect_to user_groups_path
+    @user = User.find(current_user[:id])
+    @group = Group.find(params[:id])
+    @leave = UserGroup.find(params.require(:user_groups[@user, @group]).permit(:group_id, :user_id)).destroy
+    redirect_to user_groups_path
   end
 
   def join_group

@@ -20,11 +20,12 @@
         %td= annoucement.description
         %td= annoucement.city
         %td= annoucement.exp_date
-        %td= annoucement.user
-        %td= annoucement.group
+        %td= annoucement.user.username
+        %td= annoucement.group.group_name
         %td= link_to 'Show', annoucement
-        %td= link_to 'Edit', edit_annoucement_path(annoucement)
-        %td= link_to 'Destroy', annoucement, method: :delete, data: { confirm: 'Are you sure?' }
+        - if current_user[:id] == annoucement.user_id
+          %td= link_to 'Edit', edit_annoucement_path(annoucement)
+          %td= link_to 'Destroy', annoucement, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 

@@ -19,10 +19,7 @@
     = f.label :exp_date
     = f.date_select :exp_date
   .field
-    = f.label :user
-    = f.text_field :user
-  .field
     = f.label :group
-    = f.text_field :group
+    = collection_select(:annoucement, :group_id, Group.all, :id, :group_name)
   .actions
     = f.submit 'Save'
