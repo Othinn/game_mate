@@ -18,13 +18,10 @@ class AnnoucementsController < ApplicationController
     @annoucement = Annoucement.new
   end
 
-  def logged_in?
-    !!current_user
-  end
 
   def require_user
-    unless logged_in?
-      flash[:danger] = "You need to be logged in to perform that action"
+    unless user_signed_in?
+      flash[:danger] = 'You need to be logged in to perform that action'
       redirect_to home_index_path
     end
   end
@@ -60,8 +57,7 @@ class AnnoucementsController < ApplicationController
     end
   end
 
-  # DELETE /annoucements/1
-  # DELETE /annoucements/1.json
+
   def destroy  
     @annoucement.destroy
     respond_to do |format|

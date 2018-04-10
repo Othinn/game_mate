@@ -4,11 +4,9 @@ Rails.application.routes.draw do
     member do
       post :join_group
       get :join_group
-      delete :leave_group
-
     end
   end
-  get '/user_groups/:id', to: 'groups#user_groups', as: 'user_groups'
+  get '/user_groups/', to: 'groups#user_groups', as: 'user_groups'
   root 'home#index', as: 'home_index'
   delete '/leave_group/:id', to: 'groups#leave_group', as: 'leave_group'
   devise_for :users

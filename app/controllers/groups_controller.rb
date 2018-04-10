@@ -1,5 +1,8 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :require_user, except: [:index, :show]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
+  before_action :leave_group, only: [:destroy]
 
   # GET /groups
   # GET /groups.json
@@ -7,39 +10,35 @@ class GroupsController < ApplicationController
     @groups = Group.all
   end
 
-  # GET /groups/1
-  # GET /groups/1.json
   def show
   end
 
-  # GET /groups/new
   def new
     @group = Group.new
   end
 
-  # GET /groups/1/edit
+  def require_user
+    unless user_signed_in?
+      flash[:danger] = 'You need to be logged in to perform that action'
+      redirect_to home_index_path
+    end
+  end
+
   def edit
   end
 
   def leave_group
-
-    # @leave = UserGroup.where("user_id = '#{current_user[:id]}' and group_id = '#{params[:id]}'").destroy_all
-    #
-    # flash[:notice] = 'You leaved this group'
-    # redirect_to user_groups_path
-    @user = User.find(current_user[:id])
-    @group = Group.find(params[:id])
-    @leave = UserGroup.find(params.require(:user_groups[@user, @group]).permit(:group_id, :user_id)).destroy
-    redirect_to user_groups_path
+    @user_groups = UserGroup.find_or_create_by(user_id: current_user[:id], group_id: params[:id])
+    @user_groups.destroy
+    redirect_to @user_groups
   end
 
   def join_group
     @user = User.find(current_user[:id])
     @group = Group.find(params[:id])
-    #UserGroup.new group_id: group, user_id: user
     @user.groups << @group
     flash[:notice] = 'Joined to group'
-    redirect_to @group
+    redirect_to user_groups_path
   end
 
   def user_groups
@@ -51,8 +50,6 @@ class GroupsController < ApplicationController
     @groups = Group.where(id: project_ids)
   end
 
-  # POST /groups
-  # POST /groups.json
   def create
     @group = Group.new(group_params)
 
@@ -67,8 +64,6 @@ class GroupsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /groups/1
-  # PATCH/PUT /groups/1.json
   def update
     respond_to do |format|
       if @group.update(group_params)
@@ -81,8 +76,6 @@ class GroupsController < ApplicationController
     end
   end
 
-  # DELETE /groups/1
-  # DELETE /groups/1.json
   def destroy
     @group.destroy
     respond_to do |format|
@@ -92,13 +85,19 @@ class GroupsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_group
-      @group = Group.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def group_params
-      params.require(:group).permit(:group_name, :group_id, :user_id)
+  def set_group
+    @group = Group.find(params[:id])
+  end
+
+  def group_params
+    params.require(:group).permit(:group_name, :group_id, :user_id)
+  end
+
+  def require_same_user
+    if current_user != @group.user
+      flash[:danger] = 'You can only edit or delete your own article'
+      redirect_to @user_groups
     end
+  end
 end
