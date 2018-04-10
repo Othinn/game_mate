@@ -51,7 +51,7 @@ class AnnoucementsController < ApplicationController
   def update
     respond_to do |format|
       if @annoucement.update(annoucement_params)
-        format.html { redirect_to @annoucement, notice: 'Annoucement was successfully updated.' }
+        format.html { redirect_to annoucements_url, notice: 'Annoucement was successfully updated.' }
         format.json { render :show, status: :ok, location: @annoucement }
       else
         format.html { render :edit }
@@ -82,7 +82,7 @@ class AnnoucementsController < ApplicationController
   end
 
   def require_same_user
-    if current_user != @annoucement.user_id
+    if current_user != @annoucement.user
       flash[:danger] = 'You can only edit or delete your own article'
       redirect_to @annoucement
     end
