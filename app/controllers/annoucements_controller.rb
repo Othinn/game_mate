@@ -3,14 +3,11 @@ class AnnoucementsController < ApplicationController
   before_action :require_user, except: [:index, :show]
   before_action :require_same_user, only: [:edit, :update, :destroy]
 
-  # GET /annoucements
-  # GET /annoucements.json
+
   def index
     @annoucements = Annoucement.paginate(page: params[:page], per_page: 9)
   end
 
-  # GET /annoucements/1
-  # GET /annoucements/1.json
   def show; end
 
   # GET /annoucements/new
@@ -18,17 +15,8 @@ class AnnoucementsController < ApplicationController
     @annoucement = Annoucement.new
   end
 
+  def edit; end
 
-  def require_user
-    unless user_signed_in?
-      flash[:danger] = 'You need to be logged in to perform that action'
-      redirect_to home_index_path
-    end
-  end
-  
-  def edit
-  end
-  
   def create
     @annoucement = Annoucement.new(annoucement_params)
     @annoucement.user = current_user
@@ -44,7 +32,6 @@ class AnnoucementsController < ApplicationController
     end
   end
 
-  
   def update
     respond_to do |format|
       if @annoucement.update(annoucement_params)
@@ -57,8 +44,7 @@ class AnnoucementsController < ApplicationController
     end
   end
 
-
-  def destroy  
+  def destroy
     @annoucement.destroy
     respond_to do |format|
       format.html { redirect_to annoucements_url, notice: 'Annoucement was successfully destroyed.' }
@@ -68,11 +54,17 @@ class AnnoucementsController < ApplicationController
 
   private
 
+  def require_user
+    unless user_signed_in?
+      flash[:danger] = 'You need to be logged in to perform that action'
+      redirect_to home_index_path
+    end
+  end
+
   def set_annoucement
     @annoucement = Annoucement.find(params[:id])
   end
 
-    
   def annoucement_params
     params.require(:annoucement).permit(:title, :description, :city, :exp_date, :user_id, :group_id)
   end

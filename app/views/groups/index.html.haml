@@ -13,10 +13,17 @@
       %tr
         %td= group.group_name
         %td= link_to 'Show', group
-        %td= link_to 'Edit', edit_group_path(group)
-        %td= link_to 'Join group', join_group_group_path(group)
-        %td= link_to 'Destroy', leave_group_path(group), method: :delete, data: { confirm: 'Are you sure?' }
+        - if UserGroup.where("group_id = ? AND user_id = ?", group.id, current_user.id).exists?
+          %td= link_to 'Leave group', leave_group_path(group), method: :delete, data: { confirm: 'Are you sure?' }
+        -else
+          %td= link_to 'Join group', join_group_group_path(group)
+        - if current_user[:id] == group.created_by
+
+          %td= link_to 'Destroy', group_path(group), method: :delete, data: { confirm: 'Are you sure?' }
+          %td= link_to 'Edit', edit_group_path(group)
+
+
 
 %br
-
+-#user_id: "%#{current_user[:id]}", group_id: "%#{@group}"
 = link_to 'New Group', new_group_path
