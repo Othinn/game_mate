@@ -20,6 +20,7 @@
     = f.date_select :exp_date
   .field
     = f.label :group
-    = collection_select(:annoucement, :group_id, UserGroup.where("user_id = ?", current_user[:id]), :id, :user_id)
+    =collection_select(:annoucement, :group_id, Group.all, :id, :group_name)
+    -#= collection_select(:annoucement, :group_id, UserGroup.where("user_id = ?", current_user[:id]), :id, :group_id)
   .actions
     = f.submit 'Save'
