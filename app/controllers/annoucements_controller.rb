@@ -8,7 +8,9 @@ class AnnoucementsController < ApplicationController
     @annoucements = Annoucement.paginate(page: params[:page], per_page: 9)
   end
 
-  def show; end
+  def show
+
+  end
 
   # GET /annoucements/new
   def new

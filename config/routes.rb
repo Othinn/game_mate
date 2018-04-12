@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :annoucements
+
   resources :groups do
     member do
       get :leave_group

@@ -1,8 +1,35 @@
-%p#notice= notice
+%h1 Listing annoucements
 
-%p
-  %b Group name:
-  = @group.group_name
+%table
+  %thead
+    %tr
+      %th Title
+      %th Description
+      %th City
+      %th Exp date
+      %th User
+      %th Group
+      %th
+      %th
+      %th
+
+  %tbody
+    - @group.annoucements.each do |annoucement|
+      %tr
+        %td= annoucement.title
+        %td= annoucement.description
+        %td= annoucement.city
+        %td= annoucement.exp_date
+        %td= annoucement.user.username
+        %td= annoucement.group.group_name
+        %td= link_to 'Show', annoucement
+        - if current_user[:id] == annoucement.user_id
+          %td= link_to 'Edit', edit_annoucement_path(annoucement)
+          %td= link_to 'Destroy', annoucement, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Annoucement', new_annoucement_path
 
 = link_to 'Edit', edit_group_path(@group)
 \|
