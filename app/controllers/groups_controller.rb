@@ -35,15 +35,6 @@ class GroupsController < ApplicationController
     redirect_to groups_path
   end
 
-  # def user_groups
-  #   @user_groups = UserGroup.where(user_id: current_user.id)
-  #   project_ids = []
-  #   @user_groups.each do |member|
-  #     project_ids << member.group_id
-  #   end
-  #   @groups = Group.where(id: project_ids)
-  # end
-
   def create
     @group = Group.new(group_params)
     @group.created_by = current_user.id

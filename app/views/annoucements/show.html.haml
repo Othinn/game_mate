@@ -19,6 +19,10 @@
 %p
   %b Group:
   = @annoucement.group.group_name
+-if @annoucement.comment_ids.present?
+  =render 'comments/show'
+=link_to 'New comment', new_comment_path
+
 
 = link_to 'Edit', edit_annoucement_path(@annoucement)
 \|
