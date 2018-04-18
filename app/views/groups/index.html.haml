@@ -18,7 +18,6 @@
         -else
           %td= link_to 'Join group', join_group_group_path(group)
         - if current_user[:id] == group.created_by
-
           %td= link_to 'Destroy', group_path(group), method: :delete, data: { confirm: 'Are you sure?' }
           %td= link_to 'Edit', edit_group_path(group)
 

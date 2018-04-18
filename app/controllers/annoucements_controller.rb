@@ -4,8 +4,9 @@ class AnnoucementsController < ApplicationController
   before_action :require_same_user, only: [:edit, :update, :destroy]
 
 
+
   def index
-    @annoucements = Annoucement.paginate(page: params[:page], per_page: 9)
+    @annoucement = Annoucement.paginate(page: params[:page], per_page: 9)
   end
 
   def show
@@ -55,6 +56,7 @@ class AnnoucementsController < ApplicationController
   end
 
   private
+
 
   def require_user
     unless user_signed_in?

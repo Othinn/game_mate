@@ -1,15 +1,16 @@
-%p#notice= notice
+- @annoucement.comments.each do |comment|
+  %p#notice= notice
 
-%p
-  %b Content:
-  = @comment.content
-%p
-  %b User:
-  = @comment.user
-%p
-  %b Annoucement:
-  = @comment.annoucement
+  %p
+    %b User:
+    = comment.user.username
+  %p
+    %b Content:
+    = comment.content
+  %p
+    %b Annoucement:
+    = comment.annoucement_id
+  - if comment.user_id == current_user
+    = link_to 'Edit', edit_comment_path(comment)
 
-= link_to 'Edit', edit_comment_path(@comment)
-\|
 = link_to 'Back', comments_path

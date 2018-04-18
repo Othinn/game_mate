@@ -13,19 +13,20 @@
       %th
       %th
 
-  %tbody
-    - @annoucements.each do |annoucement|
-      %tr
-        %td= annoucement.title
-        %td= annoucement.description
-        %td= annoucement.city
-        %td= annoucement.exp_date
-        %td= annoucement.user.username
-        %td= annoucement.group.group_name
-        %td= link_to 'Show', annoucement
-        - if current_user[:id] == annoucement.user_id
-          %td= link_to 'Edit', edit_annoucement_path(annoucement)
-          %td= link_to 'Destroy', annoucement, method: :delete, data: { confirm: 'Are you sure?' }
+    %tbody
+      - @annoucement.each do |annoucement|
+        - if UserGroup.where("group_id = ? AND user_id = ?", annoucement.group_id, current_user.id).exists? and annoucement.exp_date >= Date.today
+          %tr
+            %td= annoucement.title
+            %td= annoucement.description
+            %td= annoucement.city
+            %td= annoucement.exp_date
+            %td= annoucement.user.username
+            %td= annoucement.group.group_name
+            %td= link_to 'Show', annoucement
+            - if current_user[:id] == annoucement.user_id
+              %td= link_to 'Edit', edit_annoucement_path(annoucement)
+              %td= link_to 'Destroy', annoucement, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 

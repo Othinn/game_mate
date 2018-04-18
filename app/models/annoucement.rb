@@ -4,4 +4,16 @@ class Annoucement < ApplicationRecord
   has_many :comments, dependent: :delete_all
   validates_uniqueness_of :title
   validates_presence_of :title, :description, :exp_date
+  validate :exp_date_cannot_be_in_the_past
+
+
+
+
+  private
+
+  def exp_date_cannot_be_in_the_past
+    if exp_date.present? && exp_date < Date.today
+      errors.all(:exp_date, 'can\'t be in the past')
+    end
+  end
 end
