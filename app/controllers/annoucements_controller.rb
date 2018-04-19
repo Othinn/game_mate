@@ -70,7 +70,7 @@ class AnnoucementsController < ApplicationController
   end
 
   def annoucement_params
-    params.require(:annoucement).permit(:title, :description, :city, :exp_date, :user_id, :group_id)
+    params.require(:annoucement).permit(:title, :description, :city, :exp_date, :user_id, :group_id, :ann)
   end
 
   def require_same_user

@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 
   resources :annoucements do
-    resources :comments, only: [:new, :create]
+    resources :comments
   end
-  resources :comments
+
   resources :groups do
     member do
       get :leave_group

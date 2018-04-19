@@ -11,6 +11,6 @@
     %b Annoucement:
     = comment.annoucement_id
   - if comment.user_id == current_user
-    = link_to 'Edit', edit_comment_path(comment)
+    = link_to 'Edit', edit_annoucement_comment_path(comment)
 
-= link_to 'Back', comments_path
+= link_to 'Back', annoucement_path
