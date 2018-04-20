@@ -19,11 +19,13 @@
 %p
   %b Group:
   = @annoucement.group.group_name
+-if @annoucement.user.id == current_user[:id]
+  = link_to 'Edit', edit_annoucement_path(@annoucement)
 -if @annoucement.comment_ids.present?
   =render 'comments/show'
 =link_to 'New comment', new_annoucement_comment_path(annoucement_id: @annoucement.id)
 
 
-= link_to 'Edit', edit_annoucement_path(@annoucement)
+
 \|
 = link_to 'Back', annoucements_path
