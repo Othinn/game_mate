@@ -20,7 +20,7 @@
             %td= annoucement.title
             %td= annoucement.description
             %td= annoucement.city
-            %td= annoucement.exp_date
+            %td= distance_of_time_in_words(Time.now, annoucement.exp_date)
             %td= annoucement.user.username
             %td= annoucement.group.group_name
             %td= link_to 'Show', annoucement

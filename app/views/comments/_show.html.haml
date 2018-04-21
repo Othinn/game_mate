@@ -4,14 +4,15 @@
   %p
     %b User:
     = comment.user.username
+    = time_ago_in_words(comment.created_at)
   %p
     %b Content:
     = comment.content
-  %p
-    %b Annoucement:
-    = comment.annoucement_id
+  -#%p
+  -#  %b Annoucement:
+  -#  = comment.annoucement_id
   - if comment.user.id == current_user[:id]
-    = link_to 'Edit', edit_annoucement_comment_path(comment.id, comment.annoucement_id)
+    -#= link_to 'Edit', edit_annoucement_comment_path(@annoucement, comment)
     = link_to 'Delete comment', annoucement_comment_path(@annoucement, comment), method: :delete, data: {confirm: 'Are you sure?'}
 
 
