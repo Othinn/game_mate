@@ -31,6 +31,24 @@
 
 = link_to 'New Annoucement', new_annoucement_path
 
-= link_to 'Edit', edit_group_path(@group)
-\|
-= link_to 'Back', groups_path
+#new_annoucement
+  = form_for @new_annoucement, remote: true do |f|
+    .field
+      = f.label :title
+      = f.text_field :title
+    .field
+      = f.label :description
+      = f.text_area :description, rows: 10, cols: 60
+    .field
+      = f.label :city
+      = f.text_field :city
+    .field
+      = f.label :exp_date
+      = f.date_select :exp_date
+    .field
+      = f.label :group
+      =collection_select(:annoucement, :group_id, Group.all, :id, :group_name)
+    .actions
+      = f.submit 'Save'
+
+

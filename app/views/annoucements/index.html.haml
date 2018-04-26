@@ -14,9 +14,9 @@
       %th
 
     %tbody
-      - @annoucement.each do |annoucement|
+      - @annoucements.each do |annoucement|
         - if UserGroup.where("group_id = ? AND user_id = ?", annoucement.group_id, current_user.id).exists? and annoucement.exp_date >= Date.today
-          %tr
+          %tr{id: "annoucement_#{annoucement.id}"}
             %td= annoucement.title
             %td= annoucement.description
             %td= annoucement.city
@@ -26,8 +26,11 @@
             %td= link_to 'Show', annoucement
             - if current_user[:id] == annoucement.user_id
               %td= link_to 'Edit', edit_annoucement_path(annoucement)
-              %td= link_to 'Destroy', annoucement, method: :delete, data: { confirm: 'Are you sure?' }
+              %td= link_to 'Destroy', annoucement, method: :delete, remote: true, data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Annoucement', new_annoucement_path
+= link_to 'Add annoucement', new_annoucement_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}
+#modal-window.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog"}
+
+

@@ -1,21 +1,24 @@
 class AnnoucementsController < ApplicationController
   before_action :set_annoucement, only: [:show, :edit, :update, :destroy]
-  before_action :require_user, except: [:index, :show]
+  before_action :require_user
   before_action :require_same_user, only: [:edit, :update, :destroy]
 
 
 
   def index
-    @annoucement = Annoucement.paginate(page: params[:page], per_page: 9)
+    @annoucements = Annoucement.all
+
   end
 
   def show
-
+    @comments = @annoucement.comments
   end
 
-  # GET /annoucements/new
   def new
-    @annoucement = Annoucement.new
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
 
   def edit; end
@@ -26,10 +29,12 @@ class AnnoucementsController < ApplicationController
 
     respond_to do |format|
       if @annoucement.save
-        format.html { redirect_to @annoucement, notice: 'Annoucement was successfully created.' }
+        format.html { redirect_to @annoucement }
+        format.js
         format.json { render :show, status: :created, location: @annoucement }
       else
         format.html { render :new }
+        format.js
         format.json { render json: @annoucement.errors, status: :unprocessable_entity }
       end
     end
@@ -39,6 +44,7 @@ class AnnoucementsController < ApplicationController
     respond_to do |format|
       if @annoucement.update(annoucement_params)
         format.html { redirect_to annoucements_url, notice: 'Annoucement was successfully updated.' }
+        format.js
         format.json { render :show, status: :ok, location: @annoucement }
       else
         format.html { render :edit }
@@ -51,12 +57,12 @@ class AnnoucementsController < ApplicationController
     @annoucement.destroy
     respond_to do |format|
       format.html { redirect_to annoucements_url, notice: 'Annoucement was successfully destroyed.' }
+      format.js
       format.json { head :no_content }
     end
   end
 
   private
-
 
   def require_user
     unless user_signed_in?

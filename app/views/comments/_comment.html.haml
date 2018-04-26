@@ -1,0 +1,13 @@
+%ul{:id => "comment_#{comment.id}"}
+  %p
+    %b User:
+    = comment.user.username
+    = time_ago_in_words(comment.created_at)
+  %p
+    %b Content:
+    = comment.content
+  - if comment.user.id == current_user[:id]
+    = link_to 'Delete comment', annoucement_comment_path(@annoucement, comment), method: :delete, data: {confirm: 'Are you sure?'}, remote: true
+
+
+

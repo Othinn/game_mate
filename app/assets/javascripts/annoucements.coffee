@@ -1,3 +1,10 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+$(document).on 'turbolinks:load', ->
+  $('#comments-link').on 'click', (event) ->
+    event.preventDefault()
+    $('#comments-section').fadeToggle()
+
+$(document).on 'turbolinks:load', ->
+  $('#annoucement_link').on 'click', (event) ->
+    event.preventDefault()
+    $('#new_annoucement').fadeToggle()
+
