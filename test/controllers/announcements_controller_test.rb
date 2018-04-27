@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AnnoucementsControllerTest < ActionDispatch::IntegrationTest
+class AnnouncementsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @annoucement = annoucements(:one)
   end

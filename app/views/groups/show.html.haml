@@ -1,4 +1,4 @@
-%h1 Listing annoucements
+%h1 Listing announcements
 
 %table
   %thead
@@ -14,25 +14,25 @@
       %th
 
   %tbody
-    - @group.annoucements.each do |annoucement|
+    - @group.announcements.each do |announcement|
       %tr
-        %td= annoucement.title
-        %td= annoucement.description
-        %td= annoucement.city
-        %td= annoucement.exp_date
-        %td= annoucement.user.username
-        %td= annoucement.group.group_name
-        %td= link_to 'Show', annoucement
-        - if current_user[:id] == annoucement.user_id
-          %td= link_to 'Edit', edit_annoucement_path(annoucement)
-          %td= link_to 'Destroy', annoucement, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= announcement.title
+        %td= announcement.description
+        %td= announcement.city
+        %td= announcement.exp_date
+        %td= announcement.user.username
+        %td= announcement.group.group_name
+        %td= link_to 'Show', announcement
+        - if current_user[:id] == announcement.user_id
+          %td= link_to 'Edit', edit_announcement_path(announcement)
+          %td= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Annoucement', new_annoucement_path
+= link_to 'New Annoucement', new_announcement_path
 
-#new_annoucement
-  = form_for @new_annoucement, remote: true do |f|
+#new_announcement
+  = form_for @new_announcement, remote: true do |f|
     .field
       = f.label :title
       = f.text_field :title
@@ -47,7 +47,7 @@
       = f.date_select :exp_date
     .field
       = f.label :group
-      =collection_select(:annoucement, :group_id, Group.all, :id, :group_name)
+      =collection_select(:announcement, :group_id, Group.all, :id, :group_name)
     .actions
       = f.submit 'Save'
 

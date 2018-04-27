@@ -11,8 +11,8 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group_annoucements = @group.annoucements.all
-    @new_annoucement = Annoucement.new
+    @group_announcements = @group.announcements.all
+    @new_announcement = Announcement.new
   end
 
   def new

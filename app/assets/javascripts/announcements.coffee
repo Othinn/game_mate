@@ -4,7 +4,7 @@ $(document).on 'turbolinks:load', ->
     $('#comments-section').fadeToggle()
 
 $(document).on 'turbolinks:load', ->
-  $('#annoucement_link').on 'click', (event) ->
+  $('#new_annoucement_link').on 'click', (event) ->
     event.preventDefault()
     $('#new_annoucement').fadeToggle()
 

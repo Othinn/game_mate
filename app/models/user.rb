@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :user_groups, dependent: :delete_all
   has_many :groups, through: :user_groups, dependent: :delete_all
-  has_many :annoucements, dependent: :delete_all
+  has_many :announcements, dependent: :delete_all
   has_many :comments, dependent: :delete_all
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

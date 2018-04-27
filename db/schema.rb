@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20180412144053) do
 
-  create_table "annoucements", force: :cascade do |t|
+  create_table "announcements", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.string "city"
@@ -21,17 +22,17 @@ ActiveRecord::Schema.define(version: 20180412144053) do
     t.integer "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_annoucements_on_group_id"
-    t.index ["user_id"], name: "index_annoucements_on_user_id"
+    t.index ["group_id"], name: "index_announcements_on_group_id"
+    t.index ["user_id"], name: "index_announcements_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.integer "user_id"
-    t.integer "annoucement_id"
+    t.integer "announcement_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["annoucement_id"], name: "index_comments_on_annoucement_id"
+    t.index ["announcement_id"], name: "index_comments_on_announcement_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 

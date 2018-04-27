@@ -1,4 +1,4 @@
-class Annoucement < ApplicationRecord
+class Announcement < ApplicationRecord
   belongs_to :user
   belongs_to :group
   has_many :comments, dependent: :delete_all

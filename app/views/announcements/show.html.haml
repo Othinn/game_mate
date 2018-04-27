@@ -2,31 +2,31 @@
 
 %p
   %b Title:
-  = @annoucement.title
+  = @announcement.title
 %p
   %b Description:
-  = @annoucement.description
-- if @annoucement.city.present?
+  = @announcement.description
+- if @announcement.city.present?
   %p
     %b City:
-    = @annoucement.city
+    = @announcement.city
 %p
   %b Exp date:
-  = @annoucement.exp_date
+  = @announcement.exp_date
 %p
   %b User:
-  = @annoucement.user.username
+  = @announcement.user.username
 %p
   %b Group:
-  = @annoucement.group.group_name
--if @annoucement.user.id == current_user[:id]
-  = link_to 'Edit', edit_annoucement_path(@annoucement)
+  = @announcement.group.group_name
+-if @announcement.user.id == current_user[:id]
+  = link_to 'Edit', edit_announcement_path(@announcement)
 %p
   = link_to 'Comments', '#', id: 'comments-link'
 %section#comments-section
   #comments
     =render @comments
-  =form_for [@annoucement, @annoucement.comments.new], remote: true do |f|
+  =form_for [@announcement, @announcement.comments.new], remote: true do |f|
     %fieldset
       %ol
         %li
@@ -39,5 +39,5 @@
 
 
 
-= link_to 'Back', annoucements_path
+= link_to 'Back', announcements_path
 

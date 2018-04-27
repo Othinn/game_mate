@@ -4,14 +4,14 @@ class CommentsController < ApplicationController
 
   def create
 
-    @annoucement = Annoucement.find(params[:annoucement_id])
-    @comment = @annoucement.comments.new(comment_params)
+    @announcement = Announcement.find(params[:announcement_id])
+    @comment = @announcement.comments.new(comment_params)
     @comment.user = current_user
 
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @annoucement }
+        format.html { redirect_to @announcement }
         format.js
       else
         format.html { render :new }
@@ -22,11 +22,11 @@ class CommentsController < ApplicationController
 
 
   def destroy
-    @annoucement = Annoucement.find(params[:annoucement_id])
+    @announcement = Announcement.find(params[:announcement_id])
     @comment = Comment.find(params[:id])
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to @annoucement }
+      format.html { redirect_to @announcement }
       format.js
     end
   end

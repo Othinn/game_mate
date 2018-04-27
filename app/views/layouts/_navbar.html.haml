@@ -10,4 +10,5 @@
         =link_to 'Sign In', new_user_registration_path
       -if user_signed_in?
         =link_to 'Groups', groups_path
-        =link_to 'Annoucements', annoucements_path
+        -if UserGroup.where("user_id = ?", current_user.id).exists?
+          =link_to 'Annoucements', announcements_path

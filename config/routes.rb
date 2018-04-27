@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :annoucements do
+  resources :announcements do
     resources :comments, only: [:destroy, :create, :new]
   end
   resources :groups do
