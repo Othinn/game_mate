@@ -2,13 +2,13 @@ class AnnouncementsController < ApplicationController
   before_action :set_announcement, only: [:show, :edit, :update, :destroy]
   before_action :require_user
   before_action :require_same_user, only: [:edit, :update, :destroy]
-  before_action :youre_not_in_group, only: [:index, :show]
+  before_action :youre_not_in_any_group, only: [:index, :show]
 
 
   def index
-    # @users_announcements = Announcement.left_outer_joins(:user_group).where(user_group: { user_id: current_user.id }).uniq
-    @announcements = Announcement.all
+
     @announcement = Announcement.new
+    @users_announcements = Announcement.left_outer_joins(group: :user_groups).where('user_groups.user_id = ?', current_user.id)
   end
 
   def show
@@ -16,10 +16,9 @@ class AnnouncementsController < ApplicationController
   end
 
   def new
-
   end
 
-  def youre_not_in_group
+  def youre_not_in_any_group
     unless UserGroup.where("user_id = ?",  current_user.id).exists?
       redirect_to groups_path
     end

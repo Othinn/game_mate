@@ -17,19 +17,18 @@
       %th
 
     %tbody
-      - @announcements.each do |announcement|
-        - if @show_announcements
-          %tr{id: "announcement_#{announcement.id}"}
-            %td= announcement.title
-            %td= announcement.description
-            %td= announcement.city
-            %td= distance_of_time_in_words(Time.now, announcement.exp_date)
-            %td= announcement.user.username
-            %td= announcement.group.group_name
-            %td= link_to 'Show', announcement
-            - if current_user[:id] == announcement.user_id
-              %td= link_to 'Edit', edit_announcement_path(announcement)
-              %td= link_to 'Destroy', announcement, method: :delete, remote: true, data: { confirm: 'Are you sure?' }
+      - @users_announcements.each do |announcement|
+        %tr{id: "announcement_#{announcement.id}"}
+          %td= announcement.title
+          %td= announcement.description
+          %td= announcement.city
+          %td= distance_of_time_in_words(Time.now, announcement.exp_date)
+          %td= announcement.user.username
+          %td= announcement.group.group_name
+          %td= link_to 'Show', announcement
+          - if current_user[:id] == announcement.user_id
+            %td= link_to 'Edit', edit_announcement_path(announcement)
+            %td= link_to 'Destroy', announcement, method: :delete, remote: true, data: { confirm: 'Are you sure?' }
 
 %br
 

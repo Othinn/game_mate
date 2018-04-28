@@ -8,7 +8,10 @@ class GroupsController < ApplicationController
   # GET /groups.json
   def index
     @groups = Group.all
+    # @group_announcements = Announcement.left_outer_joins(group: :user_groups).where('user_groups.user_id = ? and user_groups.group_id = ?', current_user.id, @group)
+
   end
+
 
   def show
     @group_announcements = @group.announcements.all
