@@ -1,29 +1,29 @@
 %h1 Listing groups
 
-%table
-  %thead
-    %tr
-      %th Group name
-      %th
-      %th
-      %th
+= link_to 'New Group', '#', id: 'new-group-link'
 
-  %tbody
-    - @groups.each do |group|
-      %tr
-        %td= group.group_name
+#new-group
+  =render 'groups/form'
 
-        - if UserGroup.where("group_id = ? AND user_id = ?", group.id, current_user.id).exists?
-          %td= link_to 'Show', group
-          %td= link_to 'Leave group', leave_group_group_path(group), method: :delete, data: { confirm: 'Are you sure?' }
-        -else
-          %td= link_to 'Join group', join_group_group_path(group)
-        - if current_user[:id] == group.created_by
-          %td= link_to 'Destroy', group_path(group), method: :delete, data: { confirm: 'Are you sure?' }
-          %td= link_to 'Edit', edit_group_path(group)
+
+.container
+  - @groups.in_groups_of(2, false).each do |groups|
+    .row
+      -groups.each do |group|
+        .box.col-md-5{id: "group_#{group.id}"}
+          %h3= group.group_name
+          - if UserGroup.where("group_id = ? AND user_id = ?", group.id, current_user.id).exists?
+            %p= link_to 'Show', group
+            - if current_user[:id] != group.created_by
+              %p= link_to 'Leave group', leave_group_group_path(group), method: :delete, id: 'group_button', data: { confirm: 'Are you sure?' }
+          -else
+            %p= link_to 'Join group', join_group_group_path(group)
+          - if current_user[:id] == group.created_by
+            %p= link_to 'Destroy', group, method: :delete, remote: true, data: { confirm: 'Are you sure?' }
+            %p= link_to 'Edit', edit_group_path(group)
 
 
 
 %br
 -#user_id: "%#{current_user[:id]}", group_id: "%#{@group}"
-= link_to 'New Group', new_group_path
+

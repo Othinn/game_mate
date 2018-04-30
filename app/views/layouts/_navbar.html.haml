@@ -1,14 +1,35 @@
-.navbar.navbar-default
-  .container
-    .navbar-header
-      =link_to 'PlayMate', home_index_path, {class: 'navbar-brand'}
-    .nav.navbar-nav
-      -if user_signed_in?
-        =link_to 'Sign Out', destroy_user_session_path, method: :delete
-      -else
-        =link_to 'Log in', new_user_session_path
-        =link_to 'Sign In', new_user_registration_path
-      -if user_signed_in?
-        =link_to 'Groups', groups_path
-        -if UserGroup.where("user_id = ?", current_user.id).exists?
-          =link_to 'Annoucements', announcements_path
+-#.navbar-wrapper.navbar-fied-top
+-#  .container
+-#    .navbar.navbar-default
+-#      .container-fluid
+-#        .navbar-header
+-#          %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#navbar-main", "data-toggle" => "collapse", :type => "button"}
+-#
+-#        #navbar-main.navbar-collapse.collapse
+-#          %a.navbar-brand
+-#            =link_to 'PlayMate', home_index_path, {class: 'navbar-brand'}
+-#          %us.nav.navbar-nav.navbar-left
+-#            -if user_signed_in?
+-#              %li=link_to 'GROUPS', groups_path
+-#            -if UserGroup.where("user_id = ?", current_user.id).exists?
+-#              %li=link_to 'Annoucements', announcements_path
+-#          .nav.navbar-nav.navbar-right
+-#            -if user_signed_in?
+-#              %li=link_to 'Sign Out', destroy_user_session_path, method: :delete
+-#            -else
+-#              %li=link_to 'Log in', new_user_session_path
+-#              %li=link_to 'Sign In', new_user_registration_path
+-#
+
+.nav
+  %ul
+    %li=link_to 'PLAYMATE', home_index_path
+    -if user_signed_in?
+      %li=link_to 'GROUPS', groups_path
+    -if in_group
+      %li=link_to 'Annoucements', announcements_path
+    -if user_signed_in?
+      %li=link_to 'Sign Out', destroy_user_session_path, method: :delete
+    -else
+      %li=link_to 'Log in', new_user_session_path
+      %li=link_to 'Sign In', new_user_registration_path

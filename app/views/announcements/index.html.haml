@@ -1,5 +1,5 @@
 %h1 Listing announcements
-= link_to 'Add announcement', '#',  id: 'new_announcement_link'
+= link_to 'Add announcement', '#',  id: 'new-announcement-link'
 #new-announcement
   =render 'announcements/form'
 
@@ -17,6 +17,7 @@
       %th
 
     %tbody
+      #announcements
       - @users_announcements.each do |announcement|
         %tr{id: "announcement_#{announcement.id}"}
           %td= announcement.title

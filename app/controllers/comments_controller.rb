@@ -1,14 +1,12 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:destroy]
+  before_action :authenticate_user!
 
 
   def create
-
     @announcement = Announcement.find(params[:announcement_id])
     @comment = @announcement.comments.new(comment_params)
     @comment.user = current_user
-
-
     respond_to do |format|
       if @comment.save
         format.html { redirect_to @announcement }

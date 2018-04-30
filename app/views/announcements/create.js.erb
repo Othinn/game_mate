@@ -1,1 +1,2 @@
-$('#announcement_<%= @announcement.id %>').append('<%= j render @announcement %>');
+$('#announcements').append('<%= j render @users_announcements %>');
+$('#new-announcement').fadeToggle()

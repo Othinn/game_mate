@@ -1,9 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+  helper_method :in_group
 
 
-
+  def in_group
+    UserGroup.where("user_id = ?", current_user.id).exists? and user_signed_in?
+  end
 
   protected
 
