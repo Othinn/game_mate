@@ -1,26 +1,18 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
-
   before_action :authenticate_user!
 
 
-  # GET /groups
-  # GET /groups.json
   def index
     @groups = Group.all
     @group= Group.new
-    # @group_announcements = Announcement.left_outer_joins(group: :user_groups).where('user_groups.user_id = ? and user_groups.group_id = ?', current_user.id, @group)
-
-  end
-
-  def count_users_of_group
-    @count_users = UserGroup.where(group_id: @group.id).count
+    @user_group_ids = current_user.user_groups.pluck(:group_id)
+    @count_users = UserGroup.pluck(:group_id)
   end
 
   def show
     @group_announcements = @group.announcements.all
     @new_announcement = Announcement.new
-
   end
 
   def new

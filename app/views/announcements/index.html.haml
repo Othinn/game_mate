@@ -7,6 +7,7 @@
   %thead
     %tr
       %th Title
+      %th Comments
       %th Description
       %th City
       %th Exp date
@@ -18,9 +19,10 @@
 
     %tbody
       #announcements
-      - @users_announcements.each do |announcement|
+      - @users_announcements.order(:exp_date).each do |announcement|
         %tr{id: "announcement_#{announcement.id}"}
           %td= announcement.title
+          %td= @count_comments.count(announcement.id)
           %td= announcement.description
           %td= announcement.city
           %td= distance_of_time_in_words(Time.now, announcement.exp_date)

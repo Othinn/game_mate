@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
 
   def in_group
-    UserGroup.where("user_id = ?", current_user.id).exists? and user_signed_in?
+    UserGroup.where("user_id = ?", current_user).exists? and user_signed_in?
   end
 
   protected

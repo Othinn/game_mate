@@ -2,11 +2,12 @@ class AnnouncementsController < ApplicationController
   before_action :set_announcement, only: [:show, :edit, :update, :destroy]
   before_action :any_group, only: [:index, :show]
   before_action :authenticate_user!
+  before_action :count_comments, only: [:index, :show]
 
   def index
-    @announcements = Announcement.all
+
     @announcement = Announcement.new
-    @users_announcements = Announcement.left_outer_joins(group: :user_groups).where('user_groups.user_id = ?', current_user.id)
+    @users_announcements = Announcement.joins(group: :user_groups).user_in_any_group?(current_user)
   end
 
   def show
@@ -14,6 +15,10 @@ class AnnouncementsController < ApplicationController
   end
 
   def new
+  end
+
+  def count_comments
+    @count_comments = Comment.pluck(:announcement_id)
   end
 
   def any_group

@@ -12,7 +12,8 @@
       -groups.each do |group|
         .box.col-md-5{id: "group_#{group.id}"}
           %h3= group.group_name
-          - if UserGroup.where("group_id = ? AND user_id = ?", group.id, current_user.id).exists?
+          %p= @count_users.count(group.id)
+          - if @user_group_ids.include?(group.id)
             %p= link_to 'Show', group
             - if current_user[:id] != group.created_by
               %p= link_to 'Leave group', leave_group_group_path(group), method: :delete, id: 'group_button', data: { confirm: 'Are you sure?' }
@@ -25,5 +26,3 @@
 
 
 %br
--#user_id: "%#{current_user[:id]}", group_id: "%#{@group}"
-
