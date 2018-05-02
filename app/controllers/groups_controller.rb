@@ -1,13 +1,14 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :count_users, only: :index
 
 
   def index
-    @groups = Group.all
+    @groups = Group.paginate(page: params[:page], per_page: 9)
     @group= Group.new
     @user_group_ids = current_user.user_groups.pluck(:group_id)
-    @count_users = UserGroup.pluck(:group_id)
+
   end
 
   def show
@@ -57,7 +58,7 @@ class GroupsController < ApplicationController
   def update
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.html { redirect_to @group, notice: 'Group was successfully saved.' }
         format.js
         format.json { render :index, status: :ok, location: @group }
       else
@@ -77,6 +78,11 @@ class GroupsController < ApplicationController
   end
 
   private
+
+  def count_users
+    @count_users = UserGroup.pluck(:group_id)
+  end
+
 
   def set_group
     @group = Group.find(params[:id])

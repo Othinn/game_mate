@@ -5,21 +5,14 @@
 #new-group
   display: none
 
-.container
+.wrapper
+  display: grid
+  grid-template-columns: 1fr 1fr 1fr
+  grid-gap: 1em
+  justify-items: center
+  .cell
+    padding: 1em
+    align-self: stretch
 
-
-.row
-  margin: 50px 0
-  display: flex
-  justify-content: space-between
-
-
-.box
-  padding: 0 40px
-  width: -10%
-  border: 1px solid red !important
-
-
-  text-align: center
-
-
+.paginate
+  justify-items: center

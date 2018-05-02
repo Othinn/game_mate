@@ -6,23 +6,19 @@
   =render 'groups/form'
 
 
-.container
-  - @groups.in_groups_of(2, false).each do |groups|
-    .row
-      -groups.each do |group|
-        .box.col-md-5{id: "group_#{group.id}"}
-          %h3= group.group_name
-          %p= @count_users.count(group.id)
-          - if @user_group_ids.include?(group.id)
-            %p= link_to 'Show', group
-            - if current_user[:id] != group.created_by
-              %p= link_to 'Leave group', leave_group_group_path(group), method: :delete, id: 'group_button', data: { confirm: 'Are you sure?' }
-          -else
-            %p= link_to 'Join group', join_group_group_path(group)
-          - if current_user[:id] == group.created_by
-            %p= link_to 'Destroy', group, method: :delete, remote: true, data: { confirm: 'Are you sure?' }
-            %p= link_to 'Edit', edit_group_path(group)
-
-
-
-%br
+.wrapper
+  - @groups.each do |group|
+    .cell{id: "group_#{group.id}"}
+      %h3=group.group_name
+      %p= @count_users.count(group.id)
+      -if current_user[:id] != group.created_by
+        %p= link_to 'Show', group
+        - if current_user[:id] != group.created_by
+          %p= link_to 'Leave group', leave_group_group_path(group), method: :delete, id: 'group_button', data: { confirm: 'Are you sure?' }
+      -else
+        %p= link_to 'Join group', join_group_group_path(group)
+      - if current_user[:id] == group.created_by
+        %p= link_to 'Destroy', group, method: :delete, remote: true, data: { confirm: 'Are you sure?' }
+        %p= link_to 'Edit', edit_group_path(group)
+#pagingate_id
+  =will_paginate @groups, params: {is_active: true}

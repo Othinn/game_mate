@@ -13,6 +13,6 @@
     = f.date_select :exp_date
   .field
     = f.label :group
-    =collection_select(:announcement, :group_id, Group.all, :id, :group_name)
+    =collection_select(:announcement, :group_id, @users_groups, :id, :group_name)
   .actions
     = f.submit 'Save'

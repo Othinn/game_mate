@@ -3,11 +3,11 @@ class AnnouncementsController < ApplicationController
   before_action :any_group, only: [:index, :show]
   before_action :authenticate_user!
   before_action :count_comments, only: [:index, :show]
+  before_action :users_groups, ony: [:update, :create]
 
   def index
-
     @announcement = Announcement.new
-    @users_announcements = Announcement.joins(group: :user_groups).user_in_any_group?(current_user)
+    @users_announcements = Announcement.user_in_any_group?(current_user)
   end
 
   def show
@@ -15,16 +15,6 @@ class AnnouncementsController < ApplicationController
   end
 
   def new
-  end
-
-  def count_comments
-    @count_comments = Comment.pluck(:announcement_id)
-  end
-
-  def any_group
-    unless UserGroup.where("user_id = ?",  current_user.id).exists?
-      redirect_to groups_path
-    end
   end
 
   def edit; end
@@ -40,7 +30,6 @@ class AnnouncementsController < ApplicationController
         format.json { render :show, status: :created, location: @announcement }
       else
         format.html { render @announcement}
-        format.js
         format.json { render json: @announcement.errors, status: :unprocessable_entity }
       end
     end
@@ -70,12 +59,25 @@ class AnnouncementsController < ApplicationController
 
   private
 
+  def any_group
+    unless Group.user_in_any_group?(current_user).exists?
+      redirect_to groups_path
+    end
+  end
+
+  def users_groups
+    @users_groups = Group.user_in_any_group?(current_user)
+  end
+  def count_comments
+    @count_comments = Comment.pluck(:announcement_id)
+  end
+
   def set_announcement
     @announcement = Announcement.find(params[:id])
   end
 
   def announcement_params
-    params.require(:announcement).permit(:title, :description, :city, :exp_date, :user_id, :group_id, :ann)
+    params.require(:announcement).permit(:title, :description, :city, :exp_date, :user_id, :group_id)
   end
 
 end
