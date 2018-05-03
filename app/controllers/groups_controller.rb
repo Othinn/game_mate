@@ -13,7 +13,7 @@ class GroupsController < ApplicationController
 
   def show
     @group_announcements = @group.announcements.all
-    @new_announcement = Announcement.new
+    @announcement = Announcement.new
   end
 
   def new
@@ -24,18 +24,26 @@ class GroupsController < ApplicationController
   end
 
   def leave_group
-    @user_groups = UserGroup.find_or_create_by(user_id: current_user[:id], group_id: params[:id])
-    @user_groups.destroy
-    redirect_to groups_path
+    @user_groups = UserGroup.where(user_id: current_user[:id], group_id: params[:id])
+    @user_groups.destroy_all
+    respond_to do |format|
+      format.html { redirect_to groups_path }
+      format.js
+    end
+
   end
 
   def join_group
     @user = User.find(current_user[:id])
     @group = Group.find(params[:id])
-    @user.groups << @group
+
     respond_to do |format|
-      format.html {redirect_to groups_path}
-      format.js
+      if @user.groups << @group
+        format.html {redirect_to groups_path}
+        format.js
+      else
+        format.html { render :index, danger: 'You\'re already in this group'}
+      end
     end
   end
 

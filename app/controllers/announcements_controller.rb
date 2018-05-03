@@ -65,9 +65,6 @@ class AnnouncementsController < ApplicationController
     end
   end
 
-  def users_groups
-    @users_groups = Group.user_in_any_group?(current_user)
-  end
   def count_comments
     @count_comments = Comment.pluck(:announcement_id)
   end

@@ -5,14 +5,19 @@
 #new-group
   display: none
 
-.wrapper
+.cards
   display: grid
-  grid-template-columns: 1fr 1fr 1fr
-  grid-gap: 1em
-  justify-items: center
-  .cell
-    padding: 1em
-    align-self: stretch
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr))
+  grid-gap: 30px
+  max-width: 1260px
+  margin: 50px auto 30px
 
-.paginate
-  justify-items: center
+  .cell
+    position: relative
+    justify-content: center
+
+
+
+
+
+

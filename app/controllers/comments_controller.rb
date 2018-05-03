@@ -11,8 +11,9 @@ class CommentsController < ApplicationController
       if @comment.save
         format.html { redirect_to @announcement }
         format.js
+        format.json
       else
-        format.html { render :new }
+        format.html { render :'announcements/index', notice: '111' }
         format.js {render status:500}
       end
     end
@@ -26,6 +27,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @announcement }
       format.js
+      format.json
     end
   end
 
