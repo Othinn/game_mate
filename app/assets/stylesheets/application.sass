@@ -11,7 +11,6 @@
   -webkit-box-sizing: border-box
 
 nav
-
   margin: 0 0 30px 0
   ul
     li a
@@ -19,7 +18,7 @@ nav
       text-decoration: none
     background-color: teal
 
-  ul>li
+  ul > li
     padding: 15px
     display: inline-block
     transition: all .3s ease
@@ -32,33 +31,26 @@ nav
         font-size: 21px
       position: relative
       display: none
-    ol
-      position: absolute
-      top: 49px
-      right: 0
-      background: #333
-      text-align: center
-      list-style: none
-      display: none
-      > li
-        width: 100vw
-        color: #FFF
-        margin: 0
-        padding: 0
-        padding-top: 10px
-        padding-bottom: 10px
-        transition: all .3s ease
-        &:hover
-          a
-            margin: 20px
-          background: #000
-          cursor: pointer
-  input
-    opacity: .7
-    padding: 5px
-    float: right
+  ul > ol
+    position: absolute
+    top: 49px
+    right: 0
+    background: #333
+    text-align: center
+    list-style: none
     display: none
+    > li
+      width: 100vw
+      color: #FFF
+      margin: 0
+      padding: 10px
+      transition: all .3s ease
 
+      &:hover
+        a
+          margin: 20px
+        background: #000
+        cursor: pointer
 
 @media screen and (max-width: 680px)
   nav ul
@@ -67,8 +59,6 @@ nav
         display: none
       &:last-of-type
         display: block
-    input
-      display: inline
 
 @media screen and (min-width: 680px)
   nav ul > ol > li
