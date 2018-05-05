@@ -6,7 +6,6 @@
   #new-group
     =render 'groups/form'
 
-
   %section.cards
     - @groups.each do |group|
       .cell{id: "group_#{group.id}"}
@@ -26,5 +25,5 @@
           -if current_user[:id] == group.created_by
             %p= link_to 'Destroy', group, method: :delete, remote: true, data: { confirm: 'Are you sure?' }
             %p= link_to 'Edit', edit_group_path(group)
-  #pagingate_id
+  .pagination
     =will_paginate @groups, params: {is_active: true}

@@ -10,57 +10,197 @@
   -moz-box-sizing: border-box
   -webkit-box-sizing: border-box
 
-nav
-  margin: 0 0 30px 0
-  ul
-    li a
-      color: #FFF
-      text-decoration: none
-    background-color: teal
+//nav
+//  margin: 0 0 30px 0
+//  ul
+//    li a
+//      color: #FFF
+//      text-decoration: none
+//    background-color: teal
+//
+//  ul > li
+//    padding: 15px
+//    display: inline-block
+//    transition: all .3s ease
+//    margin-left: -5px
+//    &:not(:last-of-type):hover, &:first-of-type
+//      background-color: #222
+//    &:last-of-type
+//      float: right
+//      a .fa
+//        font-size: 21px
+//      position: relative
+//      display: none
+//  ul > ol
+//    position: absolute
+//    top: 49px
+//    right: 0
+//    background: #333
+//    text-align: center
+//    list-style: none
+//    display: none
+//    > li
+//      width: 100vw
+//      color: #FFF
+//      margin: 0
+//      padding: 10px
+//      transition: all .3s ease
+//
+//      &:hover
+//        a
+//          margin: 20px
+//        background: #000
+//        cursor: pointer
+//
+//@media screen and (max-width: 680px)
+//  nav ul
+//    > li
+//      &:not(:first-child)
+//        display: none
+//      &:last-of-type
+//        display: block
+//
+//@media screen and (min-width: 680px)
+//  nav ul > ol > li
+//    display: none
+//
 
-  ul > li
-    padding: 15px
+.nav
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 70px
+  z-index: 999
+
+@media only screen and (min-width: 0) and (max-width: 800px)
+  .nav
+    height: 60px
+
+.nav__container
+  background: rgba(34, 34, 34, 0.95)
+  height: 100%
+
+.nav__items
+  position: absolute
+  top: 0
+
+.nav__items--primary
+  left: 40px
+
+@media only screen and (min-width: 0) and (max-width: 800px)
+  .nav__items--primary
+    left: 20px
+
+.nav__items--secondary, .nav__items--mobile
+  right: 40px
+
+@media only screen and (min-width: 0) and (max-width: 800px)
+  .nav__items--secondary, .nav__items--mobile
+    right: 20px
+
+.nav__item
+  display: inline-block
+  margin-left: 40px
+  text-align: center
+  &:first-child
+    margin-left: 0
+  a
+    font-family: "Gotham A", "Gotham B", "Helvetica Neue", Helvetica, Arial, sans-serif
+    font-style: normal
+    font-weight: 300
+    font-size: 13px
+    color: #FFF
+    line-height: 70px
+    &:hover
+      color: #999
+
+@media only screen and (min-width: 0) and (max-width: 800px)
+  .nav__item a
+    line-height: 60px
+
+.nav__items--mobile .nav__item
+  display: inline-block
+
+
+
+.nav__item--cta a
+  font-family: "Gotham A", "Gotham B", "Helvetica Neue", Helvetica, Arial, sans-serif
+  font-style: normal
+  font-weight: 700
+  color: #4CD463
+  &:hover
+    color: #44BE5A
+
+.nav--closed
+  .nav__items--mobile
+    display: none
+  .nav__item--home
     display: inline-block
-    transition: all .3s ease
-    margin-left: -5px
-    &:not(:last-of-type):hover, &:first-of-type
-      background-color: #222
-    &:last-of-type
-      float: right
-      a .fa
-        font-size: 21px
-      position: relative
+
+
+    &:hover
+      opacity: 0.65
+
+@media only screen and (min-width: 0) and (max-width: 800px)
+  .nav--closed
+    .nav__items--primary .nav__item:not(.nav__item--home), .nav__items--secondary .nav__item:not(.nav__item--home)
       display: none
-  ul > ol
-    position: absolute
-    top: 49px
-    right: 0
-    background: #333
-    text-align: center
-    list-style: none
-    display: none
-    > li
-      width: 100vw
-      color: #FFF
-      margin: 0
-      padding: 10px
-      transition: all .3s ease
+    .nav__items--mobile
+      display: block
 
-      &:hover
-        a
-          margin: 20px
-        background: #000
-        cursor: pointer
+@media only screen and (min-width: 0) and (max-width: 800px)
+  .nav--closed .nav__item--home a
+    height: 60px
 
-@media screen and (max-width: 680px)
-  nav ul
-    > li
-      &:not(:first-child)
-        display: none
-      &:last-of-type
-        display: block
+.nav--opened
+  height: 100%
+  .nav__container
+    margin: 0 !important
+    max-width: 100%
+  .nav__wrap
+    padding: 40px
+    overflow: auto
+    height: 100%
+  .nav__items--primary, .nav__items--secondary
+    display: block
+    position: relative !important
+    left: 0
+  .nav__items--primary .nav__item, .nav__items--secondary .nav__item
+    display: block
+    margin: 0
+  .nav__items--primary .nav__item a, .nav__items--secondary .nav__item a
+    font-size: 15px
+  .nav__items--primary
+    position: relative
+    &:after
+      content: ""
+      display: block
+      height: 1px
+      position: absolute
+      bottom: -20px
+      left: 50%
+      margin-left: -10px
+      width: 20px
+      -webkit-box-shadow: 0 1px 0 0 #222
+      box-shadow: 0 1px 0 0 #222
+      -webkit-box-shadow: 0 1px 0 0 #999
+      box-shadow: 0 1px 0 0 #999
+  .nav__items--secondary
+    padding-top: 40px
+  .nav__items--mobile .nav__item
 
-@media screen and (min-width: 680px)
-  nav ul > ol > li
-    display: none
+    .fa
+      color: white
 
+@media only screen and (min-height: 560px)
+  .nav--opened .nav__wrap
+    height: auto
+    position: relative
+    top: 50%
+    -webkit-transform: translateY(-50%)
+    -ms-transform: translateY(-50%)
+    transform: translateY(-50%)
+
+body.nav--opened
+  overflow: hidden

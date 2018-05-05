@@ -8,8 +8,6 @@ class Announcement < ApplicationRecord
 
   scope :user_in_any_group?, -> (user) {joins(group: :user_groups).where('user_groups.user_id = ?', user)}
 
-
-
   private
 
   def exp_date_cannot_be_in_the_past
