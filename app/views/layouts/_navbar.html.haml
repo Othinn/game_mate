@@ -3,10 +3,10 @@
     .nav__wrap
       %ul.nav__items.nav__items--primary
         %li.nav__item.nav__item--home
-          =link_to 'PLAYMATE', home_index_path
+          =link_to 'GAME MATE', home_index_path
         -if user_signed_in?
           %li.nav__item
-            =link_to 'GROUPS', groups_path
+            =link_to 'Groups', groups_path
           -if in_group
             %li.nav__item
               =link_to 'Annoucements', announcements_path

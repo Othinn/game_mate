@@ -4,8 +4,10 @@ class GroupsController < ApplicationController
   before_action :count_users, only: :index
 
 
+
+
   def index
-    @groups = Group.paginate(page: params[:page], per_page: 9)
+    @groups = Group.paginate(page: params[:page], per_page: 12)
     @group= Group.new
     @user_group_ids = current_user.user_groups.pluck(:group_id)
 
@@ -97,6 +99,6 @@ class GroupsController < ApplicationController
   end
 
   def group_params
-    params.require(:group).permit(:group_name, :group_id, :user_id, :created_by)
+    params.require(:group).permit(:group_name, :group_id, :user_id, :created_by, :group_image)
   end
 end

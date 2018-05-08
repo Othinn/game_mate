@@ -1,4 +1,24 @@
-.index_container
+-#.index_container
+-#  =image_tag 'pexels-photo-929831.jpeg'
+-#  %h1 Meet your teammates
 
-  =image_tag 'header.jpg'
-  %h1 Meet your teammates
+
+.index-content
+  .index-content-item.info1
+    %h1 GAME MATE
+    %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque.
+  .index-content-item.figure1
+    =image_tag 'wow.jpg'
+  .index-content-item.figure2
+    =image_tag 'wow.jpg'
+  .index-content-item.info2
+    %p Statistic about page
+    %p There is #{count_users} users.
+    %p Last one was #{User.last.username}
+    %p There is #{Group.count} groups, and #{Announcement.count} annnouncement inside them, with #{Comment.count} comments.
+
+  .index-content-item.figure3
+    =image_tag 'wow.jpg'
+  .index-content-item.figure4
+    =image_tag 'wow.jpg'
+

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   helper_method :in_group
   helper_method :users_groups
-
+  helper_method :count_users
 
   def users_groups
     @users_groups = Group.user_in_any_group?(current_user)
@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
 
   def in_group
     UserGroup.where("user_id = ?", current_user).exists? and user_signed_in?
+  end
+
+  def count_users
+    User.count
   end
 
   protected

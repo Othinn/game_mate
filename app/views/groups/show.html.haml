@@ -1,38 +1,34 @@
+.image-container
+  =image_tag @group.group_image.url
+
 %h1
   =@group.group_name
+  announcements
 
 = link_to 'Add Annoucement', '#', id: 'new-announcement-link'
 #new_announcement
   =render 'announcements/form'
 
-%table
-  %thead
-    %tr
-      %th Title
-      %th Description
-      %th City
-      %th Exp date
-      %th User
-      %th Group
-      %th
-      %th
-      %th
 
-  %tbody
-    - @group.announcements.each do |announcement|
-      %tr
-        %td= announcement.title
-        %td= announcement.description
-        %td= announcement.city
-        %td= announcement.exp_date
-        %td= announcement.user.username
-        %td= announcement.group.group_name
-        %td= link_to 'Show', announcement
-        - if current_user[:id] == announcement.user_id
-          %td= link_to 'Edit', edit_announcement_path(announcement)
-          %td= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-
-
+%section.group-announcements
+  -@group.announcements.order(:exp_date).each do |announcement|
+    .announcement-cell{id: "announcement_#{announcement.id}"}
+      %h1
+        =announcement.title
+      %p.data Ends in #{time_ago_in_words(announcement.exp_date)}
+      -if announcement.city.present?
+        %p.city
+          =announcement.city
+      %p.group-name
+        Group: #{announcement.group.group_name}
+      %p.description
+        =announcement.description
+      .panel
+        %p
+          = link_to 'Show', announcement
+        -if current_user[:id] == announcement.user_id
+          %p
+            =link_to 'Edit', edit_announcement_path(announcement)
+          %p
+            =link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' }
+        %p.created-by Created by #{announcement.user.username}

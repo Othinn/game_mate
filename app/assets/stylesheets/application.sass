@@ -1,6 +1,11 @@
 @import "/*"
 @import "font-awesome-sprockets"
 @import "font-awesome"
+@import "mixins"
+
+.image-container
+  @include image-container
+
 
 *
   margin: 0
@@ -10,60 +15,16 @@
   -moz-box-sizing: border-box
   -webkit-box-sizing: border-box
 
-//nav
-//  margin: 0 0 30px 0
-//  ul
-//    li a
-//      color: #FFF
-//      text-decoration: none
-//    background-color: teal
-//
-//  ul > li
-//    padding: 15px
-//    display: inline-block
-//    transition: all .3s ease
-//    margin-left: -5px
-//    &:not(:last-of-type):hover, &:first-of-type
-//      background-color: #222
-//    &:last-of-type
-//      float: right
-//      a .fa
-//        font-size: 21px
-//      position: relative
-//      display: none
-//  ul > ol
-//    position: absolute
-//    top: 49px
-//    right: 0
-//    background: #333
-//    text-align: center
-//    list-style: none
-//    display: none
-//    > li
-//      width: 100vw
-//      color: #FFF
-//      margin: 0
-//      padding: 10px
-//      transition: all .3s ease
-//
-//      &:hover
-//        a
-//          margin: 20px
-//        background: #000
-//        cursor: pointer
-//
-//@media screen and (max-width: 680px)
-//  nav ul
-//    > li
-//      &:not(:first-child)
-//        display: none
-//      &:last-of-type
-//        display: block
-//
-//@media screen and (min-width: 680px)
-//  nav ul > ol > li
-//    display: none
-//
+
+
+
+body
+  background-color: gainsboro
+
+.devise-login-sign_up
+  margin: 20vh 10vh
+  .field
+    margin: 5px 0
 
 .nav
   position: fixed
