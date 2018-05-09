@@ -3,8 +3,6 @@
 @import "font-awesome"
 @import "mixins"
 
-.image-container
-  @include image-container
 
 
 *
@@ -15,8 +13,11 @@
   -moz-box-sizing: border-box
   -webkit-box-sizing: border-box
 
+.new-announcement-container
+  @include adding-button
 
-
+.image-container
+  @include image-container
 
 body
   background-color: gainsboro

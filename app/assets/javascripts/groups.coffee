@@ -3,3 +3,7 @@ $(document).on 'turbolinks:load', ->
     event.preventDefault()
     $('#new-group').fadeToggle()
 
+$(document).on 'turbolinks:load', ->
+  $('#new-announcement-link').on 'click', (event) ->
+    event.preventDefault()
+    $('#new-announcement').fadeToggle

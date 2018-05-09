@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   helper_method :users_groups
   helper_method :count_users
 
+
   def users_groups
     @users_groups = Group.user_in_any_group?(current_user)
   end
@@ -16,6 +17,8 @@ class ApplicationController < ActionController::Base
   def count_users
     User.count
   end
+
+
 
   protected
 

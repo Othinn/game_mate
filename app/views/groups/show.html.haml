@@ -5,30 +5,32 @@
   =@group.group_name
   announcements
 
-= link_to 'Add Annoucement', '#', id: 'new-announcement-link'
-#new_announcement
+= link_to 'Add announcement', '#',  id: 'new-announcement-link'
+#new-announcement
   =render 'announcements/form'
 
 
-%section.group-announcements
+%section.announcements
   -@group.announcements.order(:exp_date).each do |announcement|
-    .announcement-cell{id: "announcement_#{announcement.id}"}
-      %h1
-        =announcement.title
-      %p.data Ends in #{time_ago_in_words(announcement.exp_date)}
-      -if announcement.city.present?
-        %p.city
-          =announcement.city
-      %p.group-name
-        Group: #{announcement.group.group_name}
-      %p.description
-        =announcement.description
-      .panel
-        %p
-          = link_to 'Show', announcement
-        -if current_user[:id] == announcement.user_id
+    -if announcement.exp_date.future?
+      .announcement-cell{id: "announcement_#{announcement.id}"}
+        .left
+          %h1
+            =announcement.title
+          %p.date Ends in #{time_ago_in_words(announcement.exp_date)}
+          -if announcement.city.present?
+            %p.city City: #{announcement.city}
+          %p.group-name
+            Group: #{announcement.group.group_name}
+        .mid
+          %p.description
+            =truncate(announcement.description, length: 200, omission: '...')
+        .right
           %p
-            =link_to 'Edit', edit_announcement_path(announcement)
-          %p
-            =link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' }
-        %p.created-by Created by #{announcement.user.username}
+            = link_to 'Show', announcement
+          -if current_user[:id] == announcement.user_id
+            %p
+              =link_to 'Edit', edit_announcement_path(announcement)
+            %p
+              =link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' }
+          %p.created-by Created by #{announcement.user.username}

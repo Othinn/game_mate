@@ -1,43 +1,33 @@
 .image-container
   =image_tag 'pexels-photo-51415.jpeg'
   %h1 Announcements
-= link_to 'Add announcement', '#',  id: 'new-announcement-link'
+.new-announcement-container
+  = link_to 'Add announcement', '#',  id: 'new-announcement-link'
+  .fas.fa-plus-circle
 #new-announcement
   =render 'announcements/form'
 
-%table
-  %thead
-    %tr
-      %th Title
-      %th Comments
-      %th Description
-      %th City
-      %th Exp date
-      %th User
-      %th Group
-      %th
-      %th
-      %th
-
-    %tbody
-      #announcements
-      - @users_announcements.order(:exp_date).each do |announcement|
-        %tr{id: "announcement_#{announcement.id}"}
-          %td= announcement.title
-          %td= @count_comments.count(announcement.id)
-          %td= announcement.description
-          %td= announcement.city
-          %td= distance_of_time_in_words(Time.now, announcement.exp_date)
-          %td= announcement.user.username
-          %td= announcement.group.group_name
-          %td= link_to 'Show', announcement
-          - if current_user[:id] == announcement.user_id
-            %td= link_to 'Edit', edit_announcement_path(announcement)
-            %td= link_to 'Destroy', announcement, method: :delete, remote: true, data: { confirm: 'Are you sure?' }
-
-%br
-
-
-
-
-
+%section.announcements
+  -@announcements.order(:exp_date).each do |announcement|
+    -if announcement.exp_date.future?
+      .announcement-cell{id: "announcement_#{announcement.id}"}
+        .left
+          %h1
+            =announcement.title
+          %p.date Ends in #{time_ago_in_words(announcement.exp_date)}
+          -if announcement.city.present?
+            %p.city City: #{announcement.city}
+          %p.group-name
+            Group: #{announcement.group.group_name}
+        .mid
+          %p.description
+            =truncate(announcement.description, length: 100, omission: '...')
+        .right
+          %p
+            = link_to 'Show', announcement
+          -if current_user[:id] == announcement.user_id
+            %p
+              =link_to 'Edit', edit_announcement_path(announcement)
+            %p
+              =link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' }
+          %p.created-by Created by #{announcement.user.username}

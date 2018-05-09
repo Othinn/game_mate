@@ -2,12 +2,13 @@ class AnnouncementsController < ApplicationController
   before_action :set_announcement, only: [:show, :edit, :update, :destroy]
   before_action :any_group, only: [:index, :show]
   before_action :authenticate_user!
-  before_action :count_comments, only: [:index, :show]
+
   before_action :users_groups, ony: [:update, :create]
+
 
   def index
     @announcement = Announcement.new
-    @users_announcements = Announcement.user_in_any_group?(current_user)
+    @announcements = Announcement.user_in_any_group?(current_user)
   end
 
   def show
@@ -65,10 +66,6 @@ class AnnouncementsController < ApplicationController
     end
   end
 
-  def count_comments
-    @count_comments = Comment.pluck(:announcement_id)
-  end
-
   def set_announcement
     @announcement = Announcement.find(params[:id])
   end
@@ -77,4 +74,7 @@ class AnnouncementsController < ApplicationController
     params.require(:announcement).permit(:title, :description, :city, :exp_date, :user_id, :group_id)
   end
 
+  def count_comments
+    @count_comments = Comment.pluck(:announcement_id).count
+  end
 end

@@ -1,39 +1,39 @@
-%p#notice= notice
-
-%p
-  %b Title:
-  = @announcement.title
-%p
-  %b Description:
-  = @announcement.description
-- if @announcement.city.present?
-  %p
-    %b City:
-    = @announcement.city
-%p
-  %b Exp date:
-  = @announcement.exp_date
-%p
-  %b User:
-  = @announcement.user.username
-%p
-  %b Group:
-  = @announcement.group.group_name
--if @announcement.user.id == current_user[:id]
-  = link_to 'Edit', edit_announcement_path(@announcement)
-%p
-  = link_to 'Comments', '#', id: 'comments-link'
+.image-container
+  =image_tag @announcement.group.group_image.url
+.announcements
+  .announcement-cell
+    %p
+      %b Title:
+      = @announcement.title
+    %p
+      %b Description:
+      = @announcement.description
+    - if @announcement.city.present?
+      %p
+        %b City:
+        = @announcement.city
+    %p
+      %b Exp date:
+      = @announcement.exp_date
+    %p
+      %b User:
+      = @announcement.user.username
+    -if @announcement.user.id == current_user[:id]
+      = link_to 'Edit', edit_announcement_path(@announcement)
+    %p
+      = link_to 'Comments', '#', id: 'comments-link'
 %section#comments-section
   #comments
     =render @comments
-  =form_for [@announcement, @announcement.comments.new], remote: true do |f|
-    %fieldset
-      %ol
-        %li
-          = f.text_area :content, rows: 2, cols: 60,
-                        placeholder: 'Write a comment'
-        %li
-          = f.submit 'Post comment', class: 'button'
+  .comment-form
+    =form_for [@announcement, @announcement.comments.new], remote: true do |f|
+
+
+      %p
+        = f.text_area :content, rows: 2, cols: 60,
+                      placeholder: 'Write a comment'
+      %p
+        = f.submit 'Post comment', class: 'button'
 
 
 

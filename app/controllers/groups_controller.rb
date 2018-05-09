@@ -93,7 +93,6 @@ class GroupsController < ApplicationController
     @count_users = UserGroup.pluck(:group_id)
   end
 
-
   def set_group
     @group = Group.find(params[:id])
   end
