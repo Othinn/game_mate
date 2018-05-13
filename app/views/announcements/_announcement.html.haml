@@ -1,0 +1,22 @@
+-if announcement.exp_date.future?
+  .announcement-cell{id: "announcement_#{announcement.id}"}
+    .left
+      %h1
+        =announcement.title
+      %p.date Ends in #{time_ago_in_words(announcement.exp_date)}
+      -if announcement.city.present?
+        %p.city City: #{announcement.city}
+      %p.group-name
+        Group: #{announcement.group.group_name}
+    .mid
+      %p.description
+        =truncate(announcement.description, length: 100, omission: '...')
+    .right
+      %p
+        = link_to 'Show', announcement
+      -if current_user[:id] == announcement.user_id
+        %p
+          =link_to 'Edit', edit_announcement_path(announcement)
+        %p
+          =link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' }, remote: true
+      %p.created-by Created by #{announcement.user.username}

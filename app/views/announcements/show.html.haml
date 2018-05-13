@@ -27,17 +27,11 @@
     =render @comments
   .comment-form
     =form_for [@announcement, @announcement.comments.new], remote: true do |f|
-
-
       %p
         = f.text_area :content, rows: 2, cols: 60,
                       placeholder: 'Write a comment'
       %p
         = f.submit 'Post comment', class: 'button'
-
-
-
-
 
 = link_to 'Back', announcements_path
 

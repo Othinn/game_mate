@@ -1,14 +1,13 @@
 class AnnouncementsController < ApplicationController
   before_action :set_announcement, only: [:show, :edit, :update, :destroy]
-  before_action :any_group, only: [:index, :show]
+  before_action :any_group
   before_action :authenticate_user!
-
   before_action :users_groups, ony: [:update, :create]
 
 
   def index
     @announcement = Announcement.new
-    @announcements = Announcement.user_in_any_group?(current_user)
+    @announcements = Announcement.user_in_any_group?(current_user).paginate(page: params[:page], per_page: 15)
   end
 
   def show
@@ -26,7 +25,7 @@ class AnnouncementsController < ApplicationController
 
     respond_to do |format|
       if @announcement.save
-        format.html { redirect_to announcements_path}
+        format.html { redirect_to @announcement}
         format.js
         format.json { render :show, status: :created, location: @announcement }
       else
@@ -39,8 +38,7 @@ class AnnouncementsController < ApplicationController
   def update
     respond_to do |format|
       if @announcement.update(announcement_params)
-        format.html { redirect_to announcements_url, notice: 'Announcement was successfully updated.' }
-        format.js
+        format.html { redirect_to announcements_path, notice: 'Announcement was successfully updated.' }
         format.json { render :show, status: :ok, location: @announcement }
       else
         format.html { render :edit }
@@ -50,9 +48,10 @@ class AnnouncementsController < ApplicationController
   end
 
   def destroy
+    session[:return_to] ||= request.referer
     @announcement.destroy
     respond_to do |format|
-      format.html { redirect_to announcements_url, notice: 'Announcement was successfully destroyed.' }
+      format.html { redirect_to session.delete(:return_to), notice: 'Announcement was successfully destroyed.' }
       format.js
       format.json { head :no_content }
     end

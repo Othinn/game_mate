@@ -2,19 +2,20 @@ class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action :count_users, only: :index
+  helper_method :user_group_ids
 
 
-
+  def user_group_ids
+    @user_group_ids = current_user.user_groups.pluck(:group_id)
+  end
 
   def index
     @groups = Group.paginate(page: params[:page], per_page: 12)
     @group= Group.new
-    @user_group_ids = current_user.user_groups.pluck(:group_id)
-
   end
 
   def show
-    @group_announcements = @group.announcements.all
+    @group_announcements = @group.announcements.all.paginate(page: params[:page], per_page: 15)
     @announcement = Announcement.new
   end
 
@@ -52,6 +53,8 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     @group.created_by = current_user.id
+    @user_group_ids = current_user.user_groups.pluck(:group_id)
+
 
     respond_to do |format|
       if @group.save
