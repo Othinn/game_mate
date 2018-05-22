@@ -9,4 +9,5 @@ class Group < ApplicationRecord
 
   scope :user_in_any_group?, -> (user) {joins(:user_groups).where('user_groups.user_id = ?', user)}
 
+
 end

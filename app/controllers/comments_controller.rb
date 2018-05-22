@@ -14,7 +14,6 @@ class CommentsController < ApplicationController
         format.json
       else
         format.html { render :'announcements/index', notice: '111' }
-        format.js {render status:500}
       end
     end
   end
@@ -22,7 +21,6 @@ class CommentsController < ApplicationController
 
   def destroy
     @announcement = Announcement.find(params[:announcement_id])
-    @comment = Comment.find(params[:id])
     @comment.destroy
     respond_to do |format|
       format.html { redirect_to @announcement }

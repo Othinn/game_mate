@@ -2,12 +2,13 @@ class AnnouncementsController < ApplicationController
   before_action :set_announcement, only: [:show, :edit, :update, :destroy]
   before_action :any_group
   before_action :authenticate_user!
-  before_action :users_groups, ony: [:update, :create]
+  before_action :users_groups, only: [:update, :create]
+
 
 
   def index
     @announcement = Announcement.new
-    @announcements = Announcement.user_in_any_group?(current_user).paginate(page: params[:page], per_page: 15)
+    @announcements = Announcement.user_groups_announcements(current_user).paginate(page: params[:page], per_page: 15)
   end
 
   def show
@@ -16,6 +17,8 @@ class AnnouncementsController < ApplicationController
 
   def new
   end
+
+
 
   def edit; end
 

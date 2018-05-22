@@ -1,7 +1,7 @@
 .cell{id: "group_#{group.id}"}
   =image_tag group.group_image.url
   .user-count
-    = count_users.count(group.id)
+    = @count_users.count(group.id)
     .fas.fa-users
   %h3=group.group_name
   .container

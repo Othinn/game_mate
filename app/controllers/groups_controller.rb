@@ -1,13 +1,8 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_group, only: [:show, :edit, :update, :destroy, :join_group]
   before_action :authenticate_user!
   before_action :count_users, only: :index
-  helper_method :user_group_ids
 
-
-  def user_group_ids
-    @user_group_ids = current_user.user_groups.pluck(:group_id)
-  end
 
   def index
     @groups = Group.paginate(page: params[:page], per_page: 12)
@@ -15,7 +10,7 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group_announcements = @group.announcements.all.paginate(page: params[:page], per_page: 15)
+    @group_announcements = @group.announcements.paginate(page: params[:page], per_page: 15)
     @announcement = Announcement.new
   end
 
@@ -27,8 +22,8 @@ class GroupsController < ApplicationController
   end
 
   def leave_group
-    @user_groups = UserGroup.where(user_id: current_user[:id], group_id: params[:id])
-    @user_groups.destroy_all
+    @user_groups = UserGroup.find_by(user_id: current_user[:id], group_id: params[:id])
+    @user_groups.destroy
     respond_to do |format|
       format.html { redirect_to groups_path }
       format.js
@@ -38,8 +33,6 @@ class GroupsController < ApplicationController
 
   def join_group
     @user = User.find(current_user[:id])
-    @group = Group.find(params[:id])
-
     respond_to do |format|
       if @user.groups << @group
         format.html {redirect_to groups_path}

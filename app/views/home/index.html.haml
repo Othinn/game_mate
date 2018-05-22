@@ -12,10 +12,10 @@
   .index-content-item.figure2
     =image_tag 'wow.jpg'
   .index-content-item.info2
-    %p Statistic about page
+
     %p There is #{count_users} users.
-    %p Last one was #{User.last.username}
-    %p There is #{Group.count} groups, and #{Announcement.count} annnouncement inside them, with #{Comment.count} comments.
+    %p Last one was #{last_sign_up}.
+    %p There is #{group_count} groups, and #{anncouncement_count} annnouncements.
 
   .index-content-item.figure3
     =image_tag 'wow.jpg'
